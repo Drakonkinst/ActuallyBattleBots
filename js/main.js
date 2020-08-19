@@ -9,7 +9,12 @@ function setup() {
     canvas = createCanvas(800, 500);
     
     currentWorld = new World();
-    currentWorld.createBot(100, 100);
+    
+    for(let i = 0; i < 100; i++) {
+        let x = Math.random() * 100 + 100;
+        let y = Math.random() * 100 + 100;
+        currentWorld.createBot(x, y);
+    }
     
     console.log("Setup complete!");
 }

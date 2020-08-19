@@ -6,7 +6,7 @@ const Bot = (function() {
             this.position = new Vector(x, y);
             this.velocity = new Vector(0, 0);
             this.facing = 0;
-            this.maxVelocity = MAX_VELOCITY;
+            this.maxVelocity = MAX_VELOCITY * Math.random() + 2;
             this.steering = new SteeringManager(this);
         }
         

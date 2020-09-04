@@ -58,8 +58,17 @@ const SteeringManager = (function() {
             this.steering.add(seekForce);
         }
         
-        flee(targetPos) {
-            
+        flee(avoidPos) {
+            if(avoidPos == null) {
+                debug("Null flee command!");
+                return;
+            }
+
+            let host = this.host;
+            let fleeForce = host.position.copy().subtract(avoidPos);
+            fleeForce.scaleToMagnitude(host.maxVelocity);
+            fleeForce.subtract(host.velocity);
+            this.steering.add(fleeForce);
         }
     }
 })();

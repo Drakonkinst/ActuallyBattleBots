@@ -87,7 +87,7 @@ class Vector {
      */
     negate() {
         this.x = -this.x;
-        this.x = -this.y;
+        this.y = -this.y;
         return this;
     }
 

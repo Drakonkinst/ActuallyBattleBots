@@ -11,7 +11,7 @@ const Bot = (function() {
         }
         
         update() {
-            this.steering.seek(getMousePos());
+            this.steering.seek(Input.getMousePos());
             
             this.steering.update();
             this.updateFacing();

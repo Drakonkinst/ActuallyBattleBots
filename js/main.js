@@ -1,10 +1,6 @@
 let canvas;
 let currentWorld;
 
-function getMousePos() {
-    return new Vector(mouseX, mouseY);
-}
-
 function setup() {
     canvas = createCanvas(800, 500);
     

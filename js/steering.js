@@ -57,5 +57,9 @@ const SteeringManager = (function() {
             seekForce.subtract(host.velocity);
             this.steering.add(seekForce);
         }
+        
+        flee(targetPos) {
+            
+        }
     }
 })();

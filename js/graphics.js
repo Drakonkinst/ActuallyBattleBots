@@ -32,7 +32,6 @@ const Graphics = (function() {
             
             return function(bot) {
                 let pos = bot.position;
-                let velocity = bot.velocity;
                 
                 // angle in radians
                 let facing = bot.facing;

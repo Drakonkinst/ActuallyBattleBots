@@ -4,12 +4,15 @@ let currentWorld;
 function setup() {
     
     World.loadWorld(new World(1000, 800));
+    Input.setup();
     
     for(let i = 0; i < 100; i++) {
-        let x = Math.random() * 100 + width / 2 - 50;
-        let y = Math.random() * 100 + height / 2 - 50;
-        currentWorld.createBot(x, y);
+        currentWorld.spawnRandomBot();
     }
+    
+    Button.addButton(new Button("Hello World", Vector.of(10, 10), 125, 50, function() {
+        Config.isStopped = !Config.isStopped;
+    }, "red"));
     
     console.log("Setup complete!");
 }

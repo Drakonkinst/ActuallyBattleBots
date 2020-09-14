@@ -16,7 +16,7 @@ const Bot = (function() {
             this.doAvoidanceBehavior();
             
             if(!this.isAvoiding) {
-                this.steering.wander();
+                this.doNormalBehavior();
             }
             
             this.steering.update();
@@ -26,6 +26,14 @@ const Bot = (function() {
         updateFacing() {
             if(this.velocity.magnitudeSquared != 0) {
                 this.facing = Math.atan2(this.velocity.y, this.velocity.x);
+            }
+        }
+        
+        doNormalBehavior() {
+            if(Input.isMousePressed()) {
+                this.steering.seek(Input.getMousePos());
+            } else {
+                this.steering.wander();
             }
         }
         
@@ -43,7 +51,7 @@ const Bot = (function() {
         }
         
         isValid(point) {
-            return (point.x >= 0 && point.x <= currentWorld.width && point.y >= 0 && point.y <= currentWorld.height);
+            return (point.x >= 0 && point.x < currentWorld.width && point.y >= 0 && point.y < currentWorld.height);
         }
         
         getNearestCenter() {

@@ -12,9 +12,19 @@ const World = (function() {
         }
         
         update() {
+            if(Config.isStopped) {
+                return;
+            }
+            
             for(let bot of this.botList) {
                 bot.update();
             }
+        }
+        
+        spawnRandomBot() {
+            let x = Math.random() * this.width;
+            let y = Math.random() * this.height;
+            this.createBot(x, y);
         }
         
         createBot(x, y) {

@@ -11,21 +11,35 @@ const Graphics = (function() {
         vertex(vector.x, vector.y);
     }
     
+    function reset() {
+        stroke(0);
+        strokeWeight(1);
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(16);
+    }
+    
     return {
         toRadians,
         toDegrees,
         
         draw() {
             clear();
+            reset();
             background(200);
             
             this.drawBots();
+            
+            
+            this.drawButtons();
         },
         
         drawBots() {
+            fill(255);
             for(let bot of currentWorld.botList) {
                 this.drawBot(bot);
             }
+            reset();
         },
         
         drawBot: (function() {
@@ -78,5 +92,27 @@ const Graphics = (function() {
                 endShape(CLOSE);
             };
         })(),
+        
+        drawButtons() {
+            let buttonList = Button.getButtons();
+            for(let button of buttonList) {
+                this.drawButton(button);
+            }
+            reset();
+        },
+        
+        drawButton(button) {
+            strokeWeight(2);
+            stroke(0);
+            fill(button.color);
+            rect(button.position.x, button.position.y, button.width, button.height);
+            
+            fill(button.textColor);
+            textSize(button.textSize);
+            noStroke();
+            text(button.text, button.position.x + (button.width / 2), button.position.y + (button.height / 2));
+            
+            
+        }
     };
 })();

@@ -2,13 +2,13 @@ let canvas;
 let currentWorld;
 
 function setup() {
-    canvas = createCanvas(800, 500);
+    canvas = createCanvas(1000, 800);
     
     currentWorld = new World();
     
     for(let i = 0; i < 100; i++) {
-        let x = Math.random() * 100 + 100;
-        let y = Math.random() * 100 + 100;
+        let x = Math.random() * 100 + width / 2 - 50;
+        let y = Math.random() * 100 + height / 2 - 50;
         currentWorld.createBot(x, y);
     }
     

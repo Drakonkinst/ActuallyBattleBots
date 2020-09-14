@@ -1,6 +1,11 @@
 const SteeringManager = (function() {
     const MAX_FORCE = 0.1;
     const DEFAULT_SLOWING_DISTANCE = 20;
+    const DOUBLE_PI = 2.0 * Math.PI;
+    
+    const WANDER_CIRCLE_DISTANCE = 1.0;
+    const WANDER_CIRCLE_RADIUS = 3.0;
+    const MAX_ANGLE_CHANGE = toRadians(15.0);
     
     function truncate(vector, max) {
         if(vector.magnitude() > max) {
@@ -14,9 +19,14 @@ const SteeringManager = (function() {
         */
     }
     
+    function toRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+    
     return class SteeringManager {
         constructor(unit) {
             this.host = unit;
+            this.wanderAngle = Math.random() * DOUBLE_PI;
             this.reset();
         }
         
@@ -69,6 +79,21 @@ const SteeringManager = (function() {
             fleeForce.scaleToMagnitude(host.maxVelocity);
             fleeForce.subtract(host.velocity);
             this.steering.add(fleeForce);
+        }
+        
+        wander() {
+            let circleCenter = this.host.velocity.copy().scaleToMagnitude(WANDER_CIRCLE_DISTANCE);
+            
+            this.wanderAngle += (Math.random() * 2 - 1) * MAX_ANGLE_CHANGE;
+            this.wanderAngle = this.wanderAngle % DOUBLE_PI;
+            
+            let displacement = new Vector(
+                Math.cos(this.wanderAngle),
+                Math.sin(this.wanderAngle)
+            ).scale(WANDER_CIRCLE_RADIUS);
+            
+            let wanderForce = circleCenter.add(displacement);
+            this.steering.add(wanderForce);
         }
     }
 })();

@@ -1,5 +1,5 @@
 const Bot = (function() {
-    const MAX_VELOCITY = 3.0;
+    const MAX_VELOCITY = 2.0;
     
     return class Bot {
         constructor(x, y) {
@@ -11,7 +11,8 @@ const Bot = (function() {
         }
         
         update() {
-            this.steering.flee(Input.getMousePos());
+            //this.steering.flee(Input.getMousePos());
+            this.steering.wander();
             
             this.steering.update();
             this.updateFacing();

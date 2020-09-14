@@ -12,6 +12,9 @@ const Graphics = (function() {
     }
     
     return {
+        toRadians,
+        toDegrees,
+        
         draw() {
             clear();
             background(200);

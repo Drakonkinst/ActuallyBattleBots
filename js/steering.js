@@ -6,6 +6,10 @@ const SteeringManager = (function() {
     const WANDER_CIRCLE_DISTANCE = 1.0;
     const WANDER_CIRCLE_RADIUS = 3.0;
     const MAX_ANGLE_CHANGE = toRadians(15.0);
+
+    const SIGHT_DISTANCE = 100.0;
+    const HALF_SIGHT = SIGHT_DISTANCE / 2.0;
+    const SIGHT_ANGLE = toRadians(30.0);
     
     function truncate(vector, max) {
         if(vector.magnitude() > max) {
@@ -95,5 +99,19 @@ const SteeringManager = (function() {
             let wanderForce = circleCenter.add(displacement);
             this.steering.add(wanderForce);
         }
+
+        checkBounds() {
+            let hostVelocity = this.host.velocity;
+            let hostPosition = this.host.position;
+            let pointLong = hostVelocity.copy().scaleToMagnitude(SIGHT_DISTANCE).add(hostPosition);
+            let pointShort = hostVelocity.copy().scaleToMagnitude(HALF_SIGHT).add(hostPosition);
+            let pointLeft;
+            let pointRight;
+
+            let facingAngle = Math.atan2(hostVelocity.y, hostVelocity.x);
+
+            pointLeft = new Vector(Math.cos(facingAngle + SIGHT_ANGLE), Math.sin(facingAngle + SIGHT_ANGLE)).scale(HALF_SIGHT).add(hostPosition);
+            pointRight = new Vector(Math.cos(facingAngle - SIGHT_ANGLE), Math.sin(facingAngle - SIGHT_ANGLE)).scale(HALF_SIGHT).add(hostPosition);
+            return !(host.isValid(pointLong) && host.isValid(pointShort) && host.isValid(pointLeft) && host.isValid(pointRight));
     }
 })();

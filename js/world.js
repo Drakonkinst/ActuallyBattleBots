@@ -1,7 +1,14 @@
 const World = (function() {
     return class World {
-        constructor() {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
             this.botList = [];
+        }
+        
+        static loadWorld(world) {
+            createCanvas(world.width, world.height);
+            currentWorld = world;
         }
         
         update() {

@@ -49,6 +49,10 @@ const SteeringManager = (function() {
             this.reset();
         }
         
+        setWanderAngle(towards) {
+            this.wanderAngle = Math.atan2(towards.y - this.host.position.y, towards.x - this.host.position.x);
+        }
+        
         seek(targetPos, slowingRadius) {
             if(targetPos == null) {
                 debug("Null seek command!");
@@ -101,8 +105,9 @@ const SteeringManager = (function() {
         }
 
         checkBounds() {
-            let hostVelocity = this.host.velocity;
-            let hostPosition = this.host.position;
+            let host = this.host;
+            let hostVelocity = host.velocity;
+            let hostPosition = host.position;
             let pointLong = hostVelocity.copy().scaleToMagnitude(SIGHT_DISTANCE).add(hostPosition);
             let pointShort = hostVelocity.copy().scaleToMagnitude(HALF_SIGHT).add(hostPosition);
             let pointLeft;
@@ -113,5 +118,6 @@ const SteeringManager = (function() {
             pointLeft = new Vector(Math.cos(facingAngle + SIGHT_ANGLE), Math.sin(facingAngle + SIGHT_ANGLE)).scale(HALF_SIGHT).add(hostPosition);
             pointRight = new Vector(Math.cos(facingAngle - SIGHT_ANGLE), Math.sin(facingAngle - SIGHT_ANGLE)).scale(HALF_SIGHT).add(hostPosition);
             return !(host.isValid(pointLong) && host.isValid(pointShort) && host.isValid(pointLeft) && host.isValid(pointRight));
-    }
+        }
+    };
 })();

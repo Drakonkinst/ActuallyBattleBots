@@ -2,9 +2,8 @@ let canvas;
 let currentWorld;
 
 function setup() {
-    canvas = createCanvas(1000, 800);
     
-    currentWorld = new World();
+    World.loadWorld(new World(1000, 800));
     
     for(let i = 0; i < 100; i++) {
         let x = Math.random() * 100 + width / 2 - 50;
